@@ -1,0 +1,81 @@
+---
+title: "Final"
+output: html_document
+date: "2023-11-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# install.packages("tidycensus")
+library(tidycensus)
+library(tidyverse)
+```
+
+```{r}
+# API key for tidycensus
+census_api_key("879c99305c92c44bc76fa12b239039001ae1a69d", overwrite = TRUE, install = TRUE)
+```
+
+
+```{r}
+# Load available variables for ACS 5-year 2021
+variables <- load_variables(year = 2021, dataset = "acs5", cache = TRUE)
+
+# Loop to download and save data for each table B01 to B29
+for (i in 1:29) {
+    # Construct table code (e.g., B01001, B02001, ...)
+    table_code <- sprintf("B%02d001", i)
+
+    # Filter variables for the current table, including label and concept
+    current_table_variables <- subset(variables, grepl(paste0("^", table_code), variables$name), 
+                                      select = c("name", "label", "concept"))
+
+    # Check if there are variables to download
+    if (nrow(current_table_variables) > 0) {
+        # Download data for the current table
+        acs_data <- get_acs(geography = "state", 
+                            variables = current_table_variables$name, 
+                            year = 2021, 
+                            survey = "acs5")
+
+        # Merge the data with labels and concepts for clarity
+        acs_data_labeled <- merge(acs_data, current_table_variables, by.x = "variable", by.y = "name")
+
+        # Save the merged data to CSV
+        write.csv(acs_data_labeled, paste0("acs_", table_code, "_data_2021_labeled.csv"), row.names = FALSE)
+    } else {
+        message("No variables found for table ", table_code)
+    }
+}
+```
+
+```{r}
+# Load available variables for ACS 5-year 2021
+variables <- load_variables(year = 2021, dataset = "acs5", cache = TRUE)
+
+# Specific table codes
+specific_tables <- c("B01002", "B05002", "B14001", "B11012", "B17020", "B19122", "B21001", "B22001", "B23025", "B28010")
+
+# Loop to download and save data for each specified table
+for (table_code in specific_tables) {
+    # Filter variables for the current table, including label and concept
+    current_table_variables <- subset(variables, grepl(paste0("^", table_code), variables$name), 
+                                      select = c("name", "label", "concept"))
+
+    # Download data for the current table
+    acs_data <- get_acs(geography = "state", 
+                        variables = current_table_variables$name, 
+                        year = 2021, 
+                        survey = "acs5")
+
+    # Merge the data with labels and concepts for clarity
+    acs_data_labeled <- merge(acs_data, current_table_variables, by.x = "variable", by.y = "name")
+
+    # Save the merged data to CSV
+    write.csv(acs_data_labeled, paste0(table_code, ".csv"), row.names = FALSE)
+    }
+```
+
