@@ -1,0 +1,56 @@
+---
+title: "Variables"
+author: "Binghan Shen"
+date: "2023-11-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# Load datasets
+b01002_df <- read.csv("data/B01002.csv")
+b05002_df <- read.csv("data/B05002.csv")
+b11012_df <- read.csv("data/B11012.csv")
+b14001_df <- read.csv("data/B14001.csv")
+b17020_df <- read.csv("data/B17020.csv")
+b19122_df <- read.csv("data/B19122.csv")
+b21001_df <- read.csv("data/B21001.csv")
+b22001_df <- read.csv("data/B22001.csv")
+b23025_df <- read.csv("data/B23025.csv")
+b28010_df <- read.csv("data/B28010.csv")
+
+## median_age
+median_age_df <- arrange(b01002_df[b01002_df$variable == 'B01002_001',], GEOID)
+median_age <- median_age_df$estimate
+
+## proportion_foreign_born: b05002_df
+numerator_2 <- arrange(b05002_df[b05002_df$label == 'Estimate!!Total:!!Foreign born:',], GEOID)
+denominator_2 <- arrange(b05002_df[b05002_df$label == 'Estimate!!Total:',], GEOID)
+proportion_foreign_born <- numerator_2$estimate / denominator_2$estimate
+
+## proportion_married_couple_families: b11012_df
+numerator_3 <- arrange(b11012_df[b11012_df$label == 'Estimate!!Total:!!Married-couple household:',], GEOID)
+denominator_3 <- arrange(b11012_df[b11012_df$label == 'Estimate!!Total:',], GEOID)
+proportion_married_couple_families <- numerator_3$estimate / denominator_3$estimate
+
+## proportion_school_enrolled: b14001_df
+numerator_4 <- arrange(b14001_df[b14001_df$label == 'Estimate!!Total:!!Enrolled in school:',], GEOID)
+denominator_4 <- arrange(b14001_df[b14001_df$label == 'Estimate!!Total:',], GEOID)
+proportion_school_enrolled <- numerator_4$estimate / denominator_4$estimate
+
+## proportion_poverty: b17020_df
+numerator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:!!Income in the past 12 months below poverty level:' & b17020_df$concept == 'POVERTY STATUS IN THE PAST 12 MONTHS BY AGE',], GEOID)
+denominator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:' & b17020_df$concept == 'POVERTY STATUS IN THE PAST 12 MONTHS BY AGE',], GEOID)
+proportion_poverty <- numerator_5$estimate / denominator_5$estimate
+
+
+
+```
