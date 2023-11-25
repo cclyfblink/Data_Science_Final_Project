@@ -1,5 +1,6 @@
 ---
-title: "Final"
+title: "Final Project_Group 3"
+author: "Binghan Shen, Yifan Lu, Yucheng Liu"
 output: html_document
 date: "2023-11-12"
 ---
@@ -50,12 +51,8 @@ for (table_code in specific_tables) {
     write.csv(acs_data_labeled, file.path("data", paste0(table_code, ".csv")), row.names = FALSE)
     }
 ```
-```{r}
-# Function to calculate proportions
-calculate_proportion <- function(numerator, denominator) {
-  return(numerator / denominator)
-}
 
+```{r}
 # Load datasets
 b01002_df <- read.csv("data/B01002.csv")
 b05002_df <- read.csv("data/B05002.csv")
@@ -68,21 +65,84 @@ b22001_df <- read.csv("data/B22001.csv")
 b23025_df <- read.csv("data/B23025.csv")
 b28010_df <- read.csv("data/B28010.csv")
 
-# Calculate variables
-b01002_df$median_age <- b01002_df$B01002_001
-b05002_df$proportion_foreign_born <- calculate_proportion(b05002_df$B05002_013, b05002_df$B05002_001)
-b11012_df$proportion_married_couple_families <- calculate_proportion(b11012_df$B11012_003, b11012_df$B11012_001)
-b14001_df$proportion_school_enrolled <- calculate_proportion(b14001_df$B14001_002, b14001_df$B14001_001)
-b17020_df$proportion_poverty <- calculate_proportion(b17020_df$B17020_002, b17020_df$B17020_001)
-b19122_df$proportion_no_earners <- calculate_proportion(b19122_df$B19122_002, b19122_df$B19122_001)
-b21001_df$proportion_veteran <- calculate_proportion(b21001_df$B21001_002, b21001_df$B21001_001)
-b22001_df$proportion_received_food_stamps <- calculate_proportion(b22001_df$B22001_002, b22001_df$B22001_001)
-b23025_df$proportion_not_in_labor_force <- calculate_proportion(b23025_df$B23025_007, b23025_df$B23025_001)
-b28010_df$proportion_with_computing_devices <- calculate_proportion(b28010_df$B28010_002, b28010_df$B28010_001)
+## median_age
+median_age_df <- arrange(b01002_df[b01002_df$variable == 'B01002_001',], GEOID)
+median_age <- median_age_df$estimate
 
-# Combine datasets as required for further analysis
-combined_df <- merge(b01002_df[, c("GEOID", "median_age")],
-                     b05002_df[, c("GEOID", "proportion_foreign_born")], 
-                     by = "GEOID")
+## proportion_foreign_born: b05002_df
+numerator_2 <- arrange(b05002_df[b05002_df$label == 'Estimate!!Total:!!Foreign born:',], GEOID)
+denominator_2 <- arrange(b05002_df[b05002_df$label == 'Estimate!!Total:',], GEOID)
+proportion_foreign_born <- numerator_2$estimate / denominator_2$estimate
+
+## proportion_married_couple_families: b11012_df
+numerator_3 <- arrange(b11012_df[b11012_df$label == 'Estimate!!Total:!!Married-couple household:',], GEOID)
+denominator_3 <- arrange(b11012_df[b11012_df$label == 'Estimate!!Total:',], GEOID)
+proportion_married_couple_families <- numerator_3$estimate / denominator_3$estimate
+
+## proportion_school_enrolled: b14001_df
+numerator_4 <- arrange(b14001_df[b14001_df$label == 'Estimate!!Total:!!Enrolled in school:',], GEOID)
+denominator_4 <- arrange(b14001_df[b14001_df$label == 'Estimate!!Total:',], GEOID)
+proportion_school_enrolled <- numerator_4$estimate / denominator_4$estimate
+
+## proportion_poverty: b17020_df
+numerator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:!!Income in the past 12 months below poverty level:' & b17020_df$concept == 'POVERTY STATUS IN THE PAST 12 MONTHS BY AGE',], GEOID)
+denominator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:' & b17020_df$concept == 'POVERTY STATUS IN THE PAST 12 MONTHS BY AGE',], GEOID)
+proportion_poverty <- numerator_5$estimate / denominator_5$estimate
+
+# Proportion of No Earners
+numerator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:!!No workers in past 12 months:',], GEOID)
+denominator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:',], GEOID)
+proportion_no_earners <- numerator_6$estimate / denominator_6$estimate
+
+# Proportion of Veterans
+numerator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:!!Civilian veterans:',], GEOID)
+denominator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:',], GEOID)
+proportion_veteran <- numerator_7$estimate / denominator_7$estimate
+
+# Proportion who Received Food Stamps/SNAP
+numerator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:!!Household did not receive Food Stamps/SNAP in the past 12 months:',], GEOID)
+denominator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:',], GEOID)
+proportion_received_food_stamps <- numerator_8$estimate / denominator_8$estimate
+
+# Proportion Not in Labor Force
+numerator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:!!Not in labor force:',], GEOID)
+denominator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:',], GEOID)
+proportion_not_in_labor_force <- numerator_9$estimate / denominator_9$estimate
+
+# Proportion with Computing Devices
+numerator_10 <- arrange(b28010_df[b28010_df$label == 'Estimate!!Total:!!Has one or more types of computing devices:',], GEOID)
+denominator_10 <- arrange(b28010_df[b28010_df$label == 'Estimate!!Total:',], GEOID)
+proportion_with_computing_devices <- numerator_10$estimate / denominator_10$estimate
 ```
 
+```{r}
+# Load datasets
+b01002_df <- read.csv("data/B01002.csv")
+b05002_df <- read.csv("data/B05002.csv")
+b11012_df <- read.csv("data/B11012.csv")
+b14001_df <- read.csv("data/B14001.csv")
+b17020_df <- read.csv("data/B17020.csv")
+b19122_df <- read.csv("data/B19122.csv")
+b21001_df <- read.csv("data/B21001.csv")
+b22001_df <- read.csv("data/B22001.csv")
+b23025_df <- read.csv("data/B23025.csv")
+b28010_df <- read.csv("data/B28010.csv")
+
+# Extract and compute necessary variables
+median_age <- b01002_df %>% filter(variable == 'B01002_001') %>% select(GEOID, estimate)
+proportion_foreign_born <- b05002_df %>% filter(label == 'Estimate!!Total:!!Foreign born:') %>% select(GEOID, estimate)
+proportion_married_couple_families <- b11012_df %>% filter(label == 'Estimate!!Total:!!Married-couple household:') %>% select(GEOID, estimate)
+proportion_school_enrolled <- b14001_df %>% filter(label == 'Estimate!!Total:!!Enrolled in school:') %>% select(GEOID, estimate)
+proportion_poverty <- b17020_df %>% filter(label == 'Estimate!!Total:!!Income in the past 12 months below poverty level:' & concept == 'POVERTY STATUS IN THE PAST 12 MONTHS BY AGE') %>% select(GEOID, estimate)
+proportion_no_earners <- b19122_df %>% filter(label == 'Estimate!!Total:!!No workers in past 12 months:') %>% select(GEOID, estimate)
+proportion_veteran <- b21001_df %>% filter(label == 'Estimate!!Total:!!Civilian veterans:') %>% select(GEOID, estimate)
+proportion_received_food_stamps <- b22001_df %>% filter(label == 'Estimate!!Total:!!Household did not receive Food Stamps/SNAP in the past 12 months:') %>% select(GEOID, estimate)
+proportion_not_in_labor_force <- b23025_df %>% filter(label == 'Estimate!!Total:!!Not in labor force:') %>% select(GEOID, estimate)
+proportion_with_computing_devices <- b28010_df %>% filter(label == 'Estimate!!Total:!!Has one or more types of computing devices:') %>% select(GEOID, estimate)
+
+# Join the datasets together by GEOID
+combined_data <- reduce(list(median_age, proportion_foreign_born, proportion_married_couple_families, proportion_school_enrolled, proportion_poverty, proportion_no_earners, proportion_veteran, proportion_received_food_stamps, proportion_not_in_labor_force, proportion_with_computing_devices), full_join, by = "GEOID")
+
+# Check the combined data frame
+head(combined_data)
+```
