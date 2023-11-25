@@ -51,6 +51,29 @@ numerator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:!!Income in
 denominator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:' & b17020_df$concept == 'POVERTY STATUS IN THE PAST 12 MONTHS BY AGE',], GEOID)
 proportion_poverty <- numerator_5$estimate / denominator_5$estimate
 
+# Proportion of No Earners
+numerator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:!!No workers in past 12 months:',], GEOID)
+denominator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:',], GEOID)
+proportion_no_earners <- numerator_6$estimate / denominator_6$estimate
 
+# Proportion of Veterans
+numerator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:!!Civilian veterans:',], GEOID)
+denominator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:',], GEOID)
+proportion_veteran <- numerator_7$estimate / denominator_7$estimate
+
+# Proportion who Received Food Stamps/SNAP
+numerator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:!!Household did not receive Food Stamps/SNAP in the past 12 months:',], GEOID)
+denominator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:',], GEOID)
+proportion_received_food_stamps <- numerator_8$estimate / denominator_8$estimate
+
+# Proportion Not in Labor Force
+numerator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:!!Not in labor force:',], GEOID)
+denominator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:',], GEOID)
+proportion_not_in_labor_force <- numerator_9$estimate / denominator_9$estimate
+
+# Proportion with Computing Devices
+numerator_10 <- arrange(b28010_df[b28010_df$label == 'Estimate!!Total:!!Has one or more types of computing devices:',], GEOID)
+denominator_10 <- arrange(b28010_df[b28010_df$label == 'Estimate!!Total:',], GEOID)
+proportion_with_computing_devices <- numerator_10$estimate / denominator_10$estimate
 
 ```
