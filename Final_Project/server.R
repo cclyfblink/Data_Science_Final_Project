@@ -52,10 +52,10 @@ server <- function(input, output) {
     data <- dataset() %>%
       mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
     
-    # Aggregate data by state
+    # Aggregate input variable's data by state
     state_data <- data %>% 
-      group_by(state) %>% 
-      summarise(Value = mean(!!sym(input$variable), na.rm = TRUE))
+      group_by(state) %>%
+      mutate(Value = !!sym(input$variable))
     
     # Plot using usmap and ggplot2
     plot_usmap(regions = "states", data = state_data, values = "Value") +
