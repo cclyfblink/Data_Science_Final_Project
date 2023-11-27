@@ -18,7 +18,7 @@ ui <- fluidPage(
         tabPanel("Variables", 
                  plotlyOutput("histPlot"),
                  dataTableOutput("summaryTable"),
-                 leafletOutput("mapView")
+                 plotOutput("mapView")
         ),
         tabPanel("Unsupervised Learning",
                  numericInput("clusters", "Number of Clusters:", min = 2, value = 3, step = 1),
