@@ -90,12 +90,12 @@ denominator_5 <- arrange(b17020_df[b17020_df$label == 'Estimate!!Total:' & b1702
 proportion_poverty <- numerator_5$estimate / denominator_5$estimate
 
 # Proportion of No Earners
-numerator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:!!No workers in past 12 months:',], GEOID)
+numerator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:!!No earners',], GEOID)
 denominator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:',], GEOID)
 proportion_no_earners <- numerator_6$estimate / denominator_6$estimate
 
 # Proportion of Veterans
-numerator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:!!Civilian veterans:',], GEOID)
+numerator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:!!Veteran',], GEOID)
 denominator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:',], GEOID)
 proportion_veteran <- numerator_7$estimate / denominator_7$estimate
 
@@ -105,7 +105,7 @@ denominator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:',], GEOI
 proportion_received_food_stamps <- numerator_8$estimate / denominator_8$estimate
 
 # Proportion Not in Labor Force
-numerator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:!!Not in labor force:',], GEOID)
+numerator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:!!Not in labor force',], GEOID)
 denominator_9 <- arrange(b23025_df[b23025_df$label == 'Estimate!!Total:',], GEOID)
 proportion_not_in_labor_force <- numerator_9$estimate / denominator_9$estimate
 
