@@ -113,6 +113,16 @@ proportion_not_in_labor_force <- numerator_9$estimate / denominator_9$estimate
 numerator_10 <- arrange(b28010_df[b28010_df$label == 'Estimate!!Total:!!Has one or more types of computing devices:',], GEOID)
 denominator_10 <- arrange(b28010_df[b28010_df$label == 'Estimate!!Total:',], GEOID)
 proportion_with_computing_devices <- numerator_10$estimate / denominator_10$estimate
+
+# Create State IDs variable
+GEOID <- median_age_df$GEOID
+# Create State names variable
+STATE <- median_age_df$NAME
+# Create combined variables dataframe
+variables <- data.frame(GEOID, STATE, median_age, proportion_foreign_born, proportion_married_couple_families, proportion_school_enrolled, proportion_poverty, proportion_no_earners, proportion_veteran, proportion_received_food_stamps, proportion_not_in_labor_force, proportion_with_computing_devices)
+
+# Save variables dataframe as csv
+write_csv(variables, "data/variables.csv")
 ```
 
 ```{r}
