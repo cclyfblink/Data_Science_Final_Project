@@ -4,6 +4,7 @@ library(plotly)
 library(DT)
 library(leaflet)
 library(dplyr)
+library(usmap)
 library(tidycensus)
 library(cluster)    # For k-means clustering
 library(factoextra) # For visualizing clusters
