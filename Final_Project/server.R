@@ -52,6 +52,22 @@ server <- function(input, output) {
     data <- dataset() %>%
       mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
     
+    # Data description text
+    output$data_description_text <- renderText({
+      # Provide a brief description of my data
+      "We explore ten tables including B01002, B05002, B11012, B14001, B17020,
+      B19122, B21001, B22001, B23025, B28010. \n
+      Ten variables were created: \n\n
+      median_age, proportion_foreign_born, proportion_married_couple_families, 
+      proportion_school_enrolled, proportion_poverty, proportion_no_earners,
+      proportion_veteran, proportion_received_food_stamps, 
+      proportion_not_in_labor_force, proportion_with_computing_devices.\n\n
+      1. median_age = median ages in each states; \n
+      2. proportion_foreign_born = the number of people borned foreign / totol people;\n
+      3. proportion_married_couple_families = in married-couple families / total families
+      "
+    })
+    
     # Aggregate input variable's data by state
     state_data <- data %>% 
       group_by(state) %>%
