@@ -64,8 +64,27 @@ server <- function(input, output) {
       theme(legend.position = "right")
   })
   
-
-
+  # For map with colored clusters
+  output$clusterMap <- renderPlotly({
+    req(input$variable)
+    data <- dataset()
+    kmeans_result <- kmeans(data[, sapply(data, is.numeric)], centers = input$clusters)
+    data$cluster <- as.factor(kmeans_result$cluster)
+    # Map state names to state abbreviations
+    data <- data %>%
+      mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
+    
+    # Color states by cluster label
+    state_data <- data %>% 
+      group_by(state) %>%
+      mutate(Cluster = cluster)
+    
+    # Plot using usmap and ggplot2
+    plot_usmap(regions = "states", data = state_data, values = "Cluster") +
+      scale_fill_brewer(palette = "Paired", name = "Cluster") +
+      theme(legend.position = "right")
+  })
+  
   # Define wss function used for elbow plot
   wss <- function(k, data) {
   kmeans(data, k, nstart = 50)$tot.withinss
@@ -88,26 +107,6 @@ server <- function(input, output) {
     ggplotly(elbow)
   })
   
-  # For map with colored clusters
-  output$clusterMap <- renderPlotly({
-    req(input$variable)
-    data <- dataset()
-    kmeans_result <- kmeans(data[, sapply(data, is.numeric)], centers = input$clusters)
-    data$cluster <- as.factor(kmeans_result$cluster)
-    # Map state names to state abbreviations
-    data <- data %>%
-      mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
-    
-    # Color states by cluster label
-    state_data <- data %>% 
-      group_by(state) %>%
-      mutate(Cluster = cluster)
-    
-    # Plot using usmap and ggplot2
-    plot_usmap(regions = "states", data = state_data, values = "Cluster") +
-      scale_fill_brewer(palette = "Paired", name = "Cluster") +
-      theme(legend.position = "right")
-  })
 
 }
 # Return server function
