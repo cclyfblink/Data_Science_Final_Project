@@ -11,6 +11,7 @@ library(tidyverse)  # For data manipulation
 library(usmap)      # For plotting US maps
 library(here)       # For relative paths
 library(datasets)   # For state name abbreviations
+library(RColorBrewer) # For color palettes
 
 
 # Define server logic
@@ -46,7 +47,7 @@ server <- function(input, output) {
   })
 
   # For map visualization
-  output$mapView <- renderPlot({
+  output$mapView <- renderPlotly({
     req(input$variable)
     # Map state names to state abbreviations
     data <- dataset() %>%
@@ -63,14 +64,51 @@ server <- function(input, output) {
       theme(legend.position = "right")
   })
   
-  # For k-means clustering visualization
-  output$clusterPlot <- renderPlot({
-    req(input$variable) 
+
+
+  # Define wss function used for elbow plot
+  wss <- function(k, data) {
+  kmeans(data, k, nstart = 50)$tot.withinss
+  }
+  
+  # For elbow plot
+  output$elbowPlot <- renderPlotly({
+    req(input$variable)
+    data <- dataset()
+    k_values <- 1:(input$clusters + 5)
+    wss_values <- map_dbl(k_values, wss, data = data %>% select(input$variable))
+    wss_values <- tibble(wss = wss_values,
+                         k = k_values)
+    elbow <- wss_values %>% 
+      ggplot(aes(x = k, y = wss)) +
+      geom_point() + 
+      geom_line() +
+      scale_x_continuous(breaks = k_values) + # Ensure all integer values are shown
+      theme_minimal()
+    ggplotly(elbow)
+  })
+  
+  # For map with colored clusters
+  output$clusterMap <- renderPlotly({
+    req(input$variable)
     data <- dataset()
     kmeans_result <- kmeans(data[, sapply(data, is.numeric)], centers = input$clusters)
-    fviz_cluster(kmeans_result, data = data[, sapply(data, is.numeric)])
+    data$cluster <- as.factor(kmeans_result$cluster)
+    # Map state names to state abbreviations
+    data <- data %>%
+      mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
+    
+    # Color states by cluster label
+    state_data <- data %>% 
+      group_by(state) %>%
+      mutate(Cluster = cluster)
+    
+    # Plot using usmap and ggplot2
+    plot_usmap(regions = "states", data = state_data, values = "Cluster") +
+      scale_fill_brewer(palette = "Paired", name = "Cluster") +
+      theme(legend.position = "right")
   })
-}
 
+}
 # Return server function
 shinyServer(server)

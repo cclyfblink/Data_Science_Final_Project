@@ -18,11 +18,13 @@ ui <- fluidPage(
         tabPanel("Variables", 
                  plotlyOutput("histPlot"),
                  dataTableOutput("summaryTable"),
-                 plotOutput("mapView")
+                 plotlyOutput("mapView")
         ),
         tabPanel("Unsupervised Learning",
-                 numericInput("clusters", "Number of Clusters:", min = 2, value = 3, step = 1),
-                 plotOutput("clusterPlot")
+                 # Limit max number of clusters to 12 due to palette colors limitation
+                 numericInput("clusters", "Number of Clusters:", min = 2, value = 3, max = 12, step = 1),
+                 plotlyOutput("clusterMap"),
+                 plotlyOutput("elbowPlot")
         )
       )
     )
