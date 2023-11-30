@@ -73,7 +73,7 @@ server <- function(input, output) {
   output$summaryTable <- renderDataTable({
     req(input$variable) # Require the input before proceeding
     data <- dataset()
-    summary_table <- knitr::kable(favstats(!!sym(input$variable)))
+    summary_table <- favstats(~ data[[input$variable]])
     datatable(summary_table, options = list(scrollX = TRUE))
     # summarise(data,
     #           Min = min(!!sym(input$variable), na.rm = TRUE),
