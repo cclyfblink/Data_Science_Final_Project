@@ -11,12 +11,12 @@ ui <- fluidPage(
                   choices = c("median_age", "proportion_foreign_born", "proportion_married_couple_families",
                               "proportion_school_enrolled", "proportion_poverty", "proportion_no_earners",
                               "proportion_veteran", "proportion_received_food_stamps", 
-                              "proportion_not_in_labor_force", "proportion_with_computing_devices"))
+                              "proportion_not_in_labor_force", "proportion_with_computing_devices")), 
+      textOutput("data_description_text")
     ),
     mainPanel(
       tabsetPanel(
-        tabPanel("Variables", 
-                 textOutput("data_description_text"),
+        tabPanel("Variables",
                  plotlyOutput("histPlot"),
                  dataTableOutput("summaryTable"),
                  plotlyOutput("mapView")
