@@ -63,7 +63,8 @@ server <- function(input, output) {
     req(input$variable) # Require the input before proceeding
     data <- dataset()
     gg <- ggplot(data, aes_string(x = input$variable)) + 
-      geom_histogram(bins = 30, fill = "blue") +
+      geom_histogram(bins = 30, fill = "dodgerblue", color = "black") +
+      labs(x = input$variable, y = "Count", title = "Histogram of selected variable")
       theme_minimal()
     ggplotly(gg)
   })
