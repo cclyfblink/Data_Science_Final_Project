@@ -64,7 +64,7 @@ server <- function(input, output) {
     data <- dataset()
     gg <- ggplot(data, aes_string(x = input$variable)) + 
       geom_histogram(bins = 30, fill = "dodgerblue", color = "black") +
-      labs(x = input$variable, y = "Count", title = "Histogram of selected variable")
+      labs(x = input$variable, y = "Count", title = paste0("Histogram of ", input$variable))
       theme_minimal()
     ggplotly(gg)
   })
