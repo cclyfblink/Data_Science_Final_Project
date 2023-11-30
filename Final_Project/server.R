@@ -73,7 +73,7 @@ server <- function(input, output) {
   output$summaryTable <- renderDataTable({
     req(input$variable) # Require the input before proceeding
     data <- dataset()
-    summary_table <- favstats(~ data[[input$variable]])
+    summary_table <- round(favstats(~ data[[input$variable]]), digits = 3)
     datatable(summary_table, options = list(scrollX = TRUE))
     # summarise(data,
     #           Min = min(!!sym(input$variable), na.rm = TRUE),
