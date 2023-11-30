@@ -101,7 +101,7 @@ server <- function(input, output) {
     
     # Plot using usmap and ggplot2
     plot_usmap(regions = "states", data = state_data, values = "Value") +
-      scale_fill_continuous(name = input$variable, low = "white", high = "blue", na.value = "grey50") +
+      scale_fill_continuous(low = "white", high = "blue", na.value = "grey50") +
       theme(legend.position = "right")
   })
   
