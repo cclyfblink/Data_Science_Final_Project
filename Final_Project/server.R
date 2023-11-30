@@ -12,13 +12,51 @@ library(usmap)      # For plotting US maps
 library(here)       # For relative paths
 library(datasets)   # For state name abbreviations
 library(RColorBrewer) # For color palettes
-
+library(mosaic) # For summary table
+library(latex2exp)
 
 # Define server logic
 server <- function(input, output) {
   dataset <- reactive({
   read_csv(here("data/variables.csv"))
 })
+  
+  # Data description text
+  output$data_description_text <- renderText({
+    req(input$variable) # Require the input before proceeding
+    data <- dataset()
+    table_explored_list <- c('B01002', 'B05002', 'B11012', 'B14001', 'B17020', 
+                             'B19122', 'B21001', 'B22001', 'B23025', 'B28010')
+    variable_chosen = c("median_age", "proportion_foreign_born", "proportion_married_couple_families",
+                        "proportion_school_enrolled", "proportion_poverty", "proportion_no_earners",
+                        "proportion_veteran", "proportion_received_food_stamps", 
+                        "proportion_not_in_labor_force", "proportion_with_computing_devices")
+    table_used <- table_explored_list[variable_chosen == input$variable]
+    variable_creation <- c('median ages in each states',
+                           'the number of people borned in foreign areas over that of totol people',
+                           '')
+    # paste0('The variable name is ',  input$variable, ', and the table explored is ', table_used,
+    #       '. In the case of proportional variables, such as proportion_veteran, 
+    #       we construct them by dividing the number of units in interest by the total number. 
+    #       In the case of a single-valued variable, such as median_age, 
+    #       we extract the corresponding variable directly from the corresponding table')
+    
+    # Provide a brief description of my data
+    "We explore ten tables including B01002, B05002, B11012, B14001, B17020,
+    B19122, B21001, B22001, B23025, B28010. And Ten variables were created: 
+    median_age, proportion_foreign_born, proportion_married_couple_families,
+    proportion_school_enrolled, proportion_poverty, proportion_no_earners,
+    proportion_veteran, proportion_received_food_stamps,
+    proportion_not_in_labor_force, proportion_with_computing_devices. 
+    In the case of proportional variables, such as proportion_veteran, 
+    we construct them by dividing the number of units in interest by the total number. 
+    In the case of a single-valued variable, such as median_age, 
+    we extract the corresponding variable directly from the corresponding table."
+      # 1. median_age = median ages in each states; \n
+      # 2. proportion_foreign_born = the number of people borned foreign / totol people;\n
+      # 3. proportion_married_couple_families = in married-couple families / total families
+      
+  })
   
   # For histogram
   output$histPlot <- renderPlotly({
@@ -34,16 +72,18 @@ server <- function(input, output) {
   output$summaryTable <- renderDataTable({
     req(input$variable) # Require the input before proceeding
     data <- dataset()
-    summarise(data,
-              Min = min(!!sym(input$variable), na.rm = TRUE),
-              Q1 = quantile(!!sym(input$variable), 0.25, na.rm = TRUE),
-              Median = median(!!sym(input$variable), na.rm = TRUE),
-              Q3 = quantile(!!sym(input$variable), 0.75, na.rm = TRUE),
-              Max = max(!!sym(input$variable), na.rm = TRUE),
-              Mean = mean(!!sym(input$variable), na.rm = TRUE),
-              SD = sd(!!sym(input$variable), na.rm = TRUE),
-              Missing = sum(is.na(!!sym(input$variable)))
-    )
+    summary_table <- knitr::kable(favstats(!!sym(input$variable)))
+    datatable(summary_table, options = list(scrollX = TRUE))
+    # summarise(data,
+    #           Min = min(!!sym(input$variable), na.rm = TRUE),
+    #           Q1 = quantile(!!sym(input$variable), 0.25, na.rm = TRUE),
+    #           Median = median(!!sym(input$variable), na.rm = TRUE),
+    #           Q3 = quantile(!!sym(input$variable), 0.75, na.rm = TRUE),
+    #           Max = max(!!sym(input$variable), na.rm = TRUE),
+    #           Mean = mean(!!sym(input$variable), na.rm = TRUE),
+    #           SD = sd(!!sym(input$variable), na.rm = TRUE),
+    #           Missing = sum(is.na(!!sym(input$variable)))
+    #)
   })
 
   # For map visualization
@@ -52,22 +92,6 @@ server <- function(input, output) {
     # Map state names to state abbreviations
     data <- dataset() %>%
       mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
-    
-    # Data description text
-    output$data_description_text <- renderText({
-      # Provide a brief description of my data
-      "We explore ten tables including B01002, B05002, B11012, B14001, B17020,
-      B19122, B21001, B22001, B23025, B28010. \n
-      Ten variables were created: \n\n
-      median_age, proportion_foreign_born, proportion_married_couple_families, 
-      proportion_school_enrolled, proportion_poverty, proportion_no_earners,
-      proportion_veteran, proportion_received_food_stamps, 
-      proportion_not_in_labor_force, proportion_with_computing_devices.\n\n
-      1. median_age = median ages in each states; \n
-      2. proportion_foreign_born = the number of people borned foreign / totol people;\n
-      3. proportion_married_couple_families = in married-couple families / total families
-      "
-    })
     
     # Aggregate input variable's data by state
     state_data <- data %>% 
