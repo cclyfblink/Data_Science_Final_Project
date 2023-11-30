@@ -23,7 +23,7 @@ ui <- fluidPage(
         ),
         tabPanel("Unsupervised Learning",
                  # Limit max number of clusters to 12 due to palette colors limitation
-                 numericInput("clusters", "Number of Clusters:", min = 2, value = 3, max = 12, step = 1),
+                 sliderInput("clusters", "Number of Clusters:", min = 2, value = 3, max = 12, step = 1),
                  plotlyOutput("clusterMap"),
                  plotlyOutput("elbowPlot")
         )
