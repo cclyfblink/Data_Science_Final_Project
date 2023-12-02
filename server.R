@@ -65,7 +65,7 @@ server <- function(input, output) {
     data <- dataset()
     gg <- ggplot(data, aes_string(x = input$variable)) + 
       geom_histogram(bins = 30, fill = "dodgerblue", color = "black") +
-      labs(x = input$variable, y = "Count", title = paste0("Histogram of ", input$variable))
+      labs(x = input$variable, y = "Count", title = paste0("Histogram of ", input$variable)) +
       theme_minimal()
     ggplotly(gg)
   })
@@ -145,7 +145,7 @@ server <- function(input, output) {
       geom_point() + 
       geom_line() +
       scale_x_continuous(breaks = k_values) + # Ensure all integer values are shown
-      theme_minimal()
+      theme_minimal() +
     ggplotly(elbow)
   })
   
