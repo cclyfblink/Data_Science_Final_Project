@@ -112,7 +112,7 @@ server <- function(input, output) {
     req(input$variable)
     # Map state names to state abbreviations
     data <- dataset() %>%
-      mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
+      mutate(state = c(state.abb, 'DC')[match(STATE, c(state.name, 'District of Columbia'))])
     
     # Aggregate input variable's data by state
     state_data <- data %>% 
@@ -127,13 +127,12 @@ server <- function(input, output) {
   
   # For map with colored clusters
   output$clusterMap <- renderPlotly({
-    req(input$variable)
     data <- dataset()
     kmeans_result <- kmeans(data[, sapply(data, is.numeric)], centers = input$clusters)
     data$cluster <- as.factor(kmeans_result$cluster)
     # Map state names to state abbreviations
     data <- data %>%
-      mutate(state = c(state.abb, 'DC', 'PR')[match(STATE, c(state.name, 'District of Columbia', 'Puerto Rico'))])
+      mutate(state = c(state.abb, 'DC')[match(STATE, c(state.name, 'District of Columbia'))])
     
     # Color states by cluster label
     state_data <- data %>% 
@@ -153,10 +152,9 @@ server <- function(input, output) {
   
   # For elbow plot
   output$elbowPlot <- renderPlotly({
-    req(input$variable)
     data <- dataset()
-    k_values <- 1:(input$clusters + 5)
-    wss_values <- map_dbl(k_values, wss, data = data %>% select(input$variable))
+    k_values <- 1:12
+    wss_values <- map_dbl(k_values, wss, data = data[, sapply(data, is.numeric)])
     wss_values <- tibble(wss = wss_values,
                          k = k_values)
     elbow <- wss_values %>% 
