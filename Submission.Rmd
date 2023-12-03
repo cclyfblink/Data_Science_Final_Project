@@ -1,0 +1,38 @@
+---
+title: "Submission"
+author: "Binghan Shen, Yifan Lu, Yucheng Liu"
+date: "2023-12-03"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+    fig_height: 4.5
+    fig_width: 9
+  pdf_document:
+    fig_height: 3.5
+    fig_width: 3.5
+  word_document:
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Names of Group Members
+Yifan Lu, Yucheng Liu, Binghan Shen
+
+
+## Link to Shiny App Website on shinyapps.io
+https://srruzh-blink-cc.shinyapps.io/Data_Science_Final_Project/
+
+
+## Link to the Private Github Repo
+https://github.com/cclyfblink/Data_Science_Final_Project.git
+
+
+## Each Group Member’s Contributions
+
+
+
