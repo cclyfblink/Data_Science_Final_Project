@@ -26,7 +26,7 @@ server <- function(input, output) {
   output$data_description_text <- renderText({
 
     # Provide a overall brief description of our data
-    "We explore ten tables including B01002, B05002, B11012, B14001, B17020,
+    "We used 2021's 5-year ACS data in a national-level. We explore ten tables including B01002, B05002, B11012, B14001, B17020,
     B19122, B21001, B22001, B23025, B28010. And Ten variables were created: 
     median_age, proportion_foreign_born, proportion_married_couple_families,
     proportion_school_enrolled, proportion_poverty, proportion_no_earners,
