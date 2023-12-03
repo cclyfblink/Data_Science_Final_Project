@@ -2,6 +2,7 @@
 library(plotly)
 library(leaflet)
 library(shiny)
+library(DT)
 
 # Define the sidebar panel
 sidebar <- sidebarPanel(
