@@ -17,6 +17,7 @@ ui <- fluidPage(
     mainPanel(
       tabsetPanel(
         tabPanel("Variables",
+                 textOutput("variable_description_text"),
                  plotlyOutput("histPlot"),
                  dataTableOutput("summaryTable"),
                  plotlyOutput("mapView")
