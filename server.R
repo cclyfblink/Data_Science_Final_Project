@@ -164,7 +164,7 @@ server <- function(input, output) {
       geom_point() + 
       geom_line() +
       scale_x_continuous(breaks = k_values) + # Ensure all integer values are shown
-      theme_minimal() +
+      theme_minimal()
     ggplotly(elbow)
   })
   
