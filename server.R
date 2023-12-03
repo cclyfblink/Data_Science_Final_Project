@@ -140,7 +140,7 @@ server <- function(input, output) {
       mutate(Cluster = cluster)
     
     # Plot using usmap and ggplot2
-    plot_usmap(regions = "states", data = state_data, values = "Cluster") +
+    plot_usmap(regions = "states", data = state_data, values = "Cluster", labels = TRUE) +
       scale_fill_brewer(palette = "Paired", name = "Cluster") +
       theme(legend.position = "right")
   })
