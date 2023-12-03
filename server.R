@@ -4,6 +4,7 @@ library(plotly)
 library(DT)
 library(leaflet)
 library(dplyr)
+library(usmap)
 library(tidycensus)
 library(cluster)    # For k-means clustering
 library(factoextra) # For visualizing clusters
@@ -119,7 +120,7 @@ server <- function(input, output) {
       mutate(Value = !!sym(input$variable))
     
     # Plot using usmap and ggplot2
-    plot_usmap(regions = "states", data = state_data, values = "Value", labels = TRUE, label_size = 3) +
+    plot_usmap(regions = "states", data = state_data, values = "Value", labels = TRUE) +
       scale_fill_continuous(low = "white", high = "blue", na.value = "grey50") +
       theme(legend.position = "right")
   })
@@ -163,7 +164,7 @@ server <- function(input, output) {
       geom_point() + 
       geom_line() +
       scale_x_continuous(breaks = k_values) + # Ensure all integer values are shown
-      theme_minimal()
+      theme_minimal() +
     ggplotly(elbow)
   })
   
