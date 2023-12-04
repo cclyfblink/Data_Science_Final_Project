@@ -70,11 +70,14 @@ b29004_df <- read.csv("data/B29004.csv")
 median_age_df <- arrange(b01002_df[b01002_df$variable == 'B01002_001',], GEOID)
 median_age <- median_age_df$estimate
 
-# DELETE
-## proportion_foreign_born: b05002_df
-numerator_2 <- arrange(b05002_df[b05002_df$label == 'Estimate!!Total:!!Foreign born:',], GEOID)
-denominator_2 <- arrange(b05002_df[b05002_df$label == 'Estimate!!Total:',], GEOID)
-proportion_foreign_born <- numerator_2$estimate / denominator_2$estimate
+## proportion_disability_35to64: B18101_df
+numerator_2_male <- arrange(b18101_df[b18101_df$label == 'Estimate!!Total:!!Male:!!35 to 64 years:!!With a disability',], GEOID)
+numerator_2_female <- arrange(b18101_df[b18101_df$label == 'Estimate!!Total:!!Female:!!35 to 64 years:!!With a disability',], GEOID)
+numerator_2 <- numerator_2_male$estimate + numerator_2_female$estimate
+denominator_2_male <- arrange(b18101_df[b18101_df$label == 'Estimate!!Total:!!Male:!!35 to 64 years:',], GEOID)
+denominator_2_female <- arrange(b18101_df[b18101_df$label == 'Estimate!!Total:!!Female:!!35 to 64 years:',], GEOID)
+denominator_2 <- denominator_2_male$estimate + denominator_2_female$estimate
+proportion_disability_35to64 <- numerator_2 / denominator_2
 
 ## proportion_married_couple_families: b11012_df
 numerator_3 <- arrange(b11012_df[b11012_df$label == 'Estimate!!Total:!!Married-couple household:',], GEOID)
