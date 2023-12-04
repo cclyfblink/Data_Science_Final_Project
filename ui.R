@@ -32,7 +32,13 @@ main <- mainPanel(
              # Slider input for number of clusters
              sliderInput("clusters", "Number of Clusters:", min = 2, value = 2, max = 12, step = 1),
              plotlyOutput("clusterMap"),
-             plotlyOutput("elbowPlot")
+             plotlyOutput("elbowPlot"),
+             # Add the updated descriptive text at the bottom with a line break
+             HTML('<div style="margin-top: 20px;"><p>Drawing upon the elbow plot depicted beneath the map, 
+             we ascertain that the ideal number of clusters, denoted as k, is 2.
+                  <br>We\'ve chosen variables that reflect the overall quality of life in each state. 
+                  While we can\'t definitively state which cluster leads a more affluent life, 
+                  it\'s evident that they exhibit differences in numerous aspects concerning the chosen variables.</p></div>')
     )
   )
 )
