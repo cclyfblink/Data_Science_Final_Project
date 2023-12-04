@@ -152,29 +152,6 @@ server <- function(input, output) {
     ggplotly(elbow)
   })
   
-  # Search functionality for the summary table
-  output$searchResults <- renderText({
-    req(input$variable, input$search_stat)
-    data <- dataset()
-    chosen_variable <- input$variable
-    stat_name <- input$search_stat
-    
-    # Assuming favstats returns a data frame with the statistic names as column names
-    stats <- favstats(~ data[[chosen_variable]])
-    # Retrieve the value of the requested statistic
-    stat_value <- stats[[tolower(stat_name)]]
-    
-    if (!is.null(stat_value)) {
-      paste(stat_name, "for", chosen_variable, "is", stat_value)
-    } else {
-      paste("Statistic", stat_name, "not found for", chosen_variable)
-    }
-  })
-  
-  # Observe event for when the search button is pressed
-  observeEvent(input$search, {
-    output$searchResults
-  })
 }
 
 # Return server function
