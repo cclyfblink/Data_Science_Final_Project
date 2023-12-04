@@ -30,7 +30,7 @@ main <- mainPanel(
     # Second tab for unsupervised learning
     tabPanel("Unsupervised Learning",
              # Slider input for number of clusters
-             sliderInput("clusters", "Number of Clusters:", min = 2, value = 3, max = 12, step = 1),
+             sliderInput("clusters", "Number of Clusters:", min = 2, value = 2, max = 12, step = 1),
              plotlyOutput("clusterMap"),
              plotlyOutput("elbowPlot")
     )
