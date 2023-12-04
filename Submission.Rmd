@@ -33,6 +33,32 @@ https://github.com/cclyfblink/Data_Science_Final_Project.git
 
 
 ## Each Group Member’s Contributions
+***Data Set***
+1. Use the tidycensus package to access tables and download the ACS data: Yifan Lu
+
+2. There are 29 B tables. Select 10 of them (B01-B29) to explore: Yifan Lu, Binghan Shen, Yucheng Liu
+
+3. Derive/select one variable from each table to create your data set: Yucheng Liu, Binghan Shen
+
+4. Document the construction of the data set in an R file: Yifan Lu, Binghan Shen, Yucheng Liu
+
+
+***“Variables” Tab Panel***
+1. Use text on the app to describe your data: Binghan Shen
+
+2. An interactive histogram using plotly: Yucheng Liu, Yifan Lu
+
+3. A table summarizing the min, Q1, median, Q3, max, mean, sd, and # of missing: Binghan Shen
+
+4. A map visualizing the spatial distribution of each variable: Yifan Lu
+
+
+***“Unsupervised Learning” Tab Panel***
+1. visually summarize the clustering results for k clusters, allowing k to vary: Yifan Lu, Yucheng Liu
+
+2. Note that you’re clustering states/counties here, so the clustering results should be summarized on maps: Yifan Lu
+
+3. Use text on the app to interpret your results and summarize your conclusion: Binghan Shen, Yifan Lu, Yucheng Liu
 
 
 

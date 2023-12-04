@@ -45,24 +45,25 @@ server <- function(input, output) {
   output$variable_description_text <- renderText({
     req(input$variable) # Require the input before proceeding
     data <- dataset()
-    table_explored_list <- c('B01002', 'B05002', 'B11012', 'B14001', 'B17020', 
-                             'B19122', 'B21001', 'B22001', 'B23025', 'B28010')
-    variable_chosen = c("median_age", "proportion_foreign_born", "proportion_married_couple_families",
-                        "proportion_school_enrolled", "proportion_poverty", "proportion_no_earners",
-                        "proportion_veteran", "proportion_received_food_stamps", 
-                        "proportion_not_in_labor_force", "proportion_with_computing_devices")
+    table_explored_list <- c('B01002', 'B11012', 'B14001', 'B17020', 'B18101',
+                             'B19122', 'B22001', 'B23025', 'B28010', 'B29004')
+    variable_chosen = c("median_age", "proportion_married_couple_families",
+                        "proportion_school_enrolled", "proportion_poverty", "proportion_disability_35to64",
+                        "proportion_no_earners", "proportion_received_food_stamps", 
+                        "proportion_not_in_labor_force", "proportion_with_computing_devices",
+                        "median_household_income")
     table_used <- table_explored_list[variable_chosen == input$variable]
     variable_creation <- c('median ages in each states',
-                           'foreign born population over total population',
                            'in married-couple families over total families',
                            'enrolled in school population over total population',
                            'in the past 12 months below poverty level population over total population',
+                           '35-64 years old with disability population over 35-64 years old population',
                            'no earners families over total families',
-                           'veteran population / total population',
                            'Household received food stamps in the past 12 months over total population',
                            'not in labor force population / total population',
                            'having one or more types of computing devices popultaion
-                           over total popultaion')
+                           over total popultaion',
+                           'median household income for households with a citizen, voting-age householder ')
     created_text <- variable_creation[variable_chosen == input$variable]
     
     paste0('The variable name is "',  input$variable, '", and the table explored is "', table_used, 
