@@ -29,8 +29,8 @@ census_api_key("879c99305c92c44bc76fa12b239039001ae1a69d", overwrite = TRUE, ins
 # Load available variables for ACS 5-year 2021
 variables <- load_variables(year = 2021, dataset = "acs5", cache = TRUE)
 
-# Specific table codes
-specific_tables <- c("B01002", "B14001", "B11012", "B17020", "B18130", "B19122", "B22001", "B23025", "B28010", "B29004")
+# Specific table codes to download
+specific_tables <- c("B01002", "B14001", "B11012", "B17020", "B18108", "B19122", "B22001", "B23025", "B28010", "B29004")
 
 # Loop to download and save data for each specified table
 for (table_code in specific_tables) {
