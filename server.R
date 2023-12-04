@@ -29,13 +29,12 @@ server <- function(input, output) {
   output$data_description_text <- renderText({
 
     # Provide a overall brief description of our data
-    "We used 2021's 5-year ACS data in a national-level. We explore ten tables including B01002, B05002, B11012, B14001, B17020,
-    B19122, B21001, B22001, B23025, B28010. And Ten variables were created: 
-    median_age, proportion_foreign_born, proportion_married_couple_families,
-    proportion_school_enrolled, proportion_poverty, proportion_no_earners,
-    proportion_veteran, proportion_received_food_stamps,
-    proportion_not_in_labor_force, proportion_with_computing_devices. 
-    In the case of proportional variables, such as proportion_veteran, 
+    "We used 2021's 5-year ACS data in a national-level. We explore ten tables including B01002, B11012, B14001, B17020,
+    B18101, B19122, B22001, B23025, B28010, B29004. And Ten variables were created: 
+    median_age, proportion_married_couple_families, proportion_school_enrolled, 
+    proportion_poverty, proportion_disability_35to64, proportion_no_earners, proportion_received_food_stamps,
+    proportion_not_in_labor_force, proportion_with_computing_devices, median_household_income. 
+    In the case of proportional variables, such as proportion_poverty, 
     we construct them by dividing the number of units in interest by the total number. 
     In the case of a single-valued variable, such as median_age, 
     we extract the corresponding variable directly from the corresponding table."
