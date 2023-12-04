@@ -1,4 +1,4 @@
-median_age,proportion_disability_35to64,proportion_married_couple_families,proportion_school_enrolled,proportion_poverty,proportion_no_earners,median_income,proportion_received_food_stamps,proportion_not_in_labor_force,proportion_with_computing_devices,GEOID,STATE
+median_age,proportion_disability_35to64,proportion_married_couple_families,proportion_school_enrolled,proportion_poverty,proportion_no_earners,median_household_income,proportion_received_food_stamps,proportion_not_in_labor_force,proportion_with_computing_devices,GEOID,STATE
 0.2836157143274348,1.540556927882936,-0.1813061922509849,-0.23217701145107744,1.253578308398286,1.414346551651795,-1.209557430866038,-0.8443115951161825,1.6736570915546156,-1.55328680019988,1,Alabama
 -1.5674832782918104,0.1405932333652639,0.48001485406020683,0.2117511516850862,-0.752183814458079,-1.3237094209832387,0.937329444052519,0.20979392280026826,-0.8528069367170568,1.4418741173576635,2,Alaska
 -0.2329700510546786,-0.1537876300922251,-0.11084584088435027,0.06169105919349897,0.3966027028732612,1.2938985288269076,-0.19633298602535765,0.2635348570755874,0.9041943971906932,0.8671835894816767,4,Arizona
