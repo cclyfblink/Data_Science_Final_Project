@@ -128,3 +128,10 @@ variables <- variables[-52,]
 # Save variables dataframe as csv
 write_csv(variables, "data/variables.csv")
 ```
+
+```{r}
+scaled_variables <- variables %>% select(-GEOID, -STATE) %>% scale() %>% as.data.frame() %>%
+  mutate(GEOID = variables$GEOID, STATE = variables$STATE)
+write_csv(scaled_variables, "data/scaled_variables.csv")
+```
+

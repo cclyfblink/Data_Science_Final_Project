@@ -20,7 +20,10 @@ library(latex2exp)
 server <- function(input, output) {
   dataset <- reactive({
   read_csv(here("data/variables.csv"))
-})
+  })
+  scaled_data <- reactive(
+    read_csv(here("data/scaled_variables.csv"))
+  )
   
   # Data description text
   output$data_description_text <- renderText({
@@ -107,7 +110,8 @@ server <- function(input, output) {
   
   # For map with colored clusters
   output$clusterMap <- renderPlotly({
-    data <- dataset()
+    set.seed(123)
+    data <- scaled_data()
     kmeans_result <- kmeans(data[, sapply(data, is.numeric)], centers = input$clusters)
     data$cluster <- as.factor(kmeans_result$cluster)
     # Map state names to state abbreviations
@@ -132,7 +136,7 @@ server <- function(input, output) {
   
   # For elbow plot
   output$elbowPlot <- renderPlotly({
-    data <- dataset()
+    data <- scaled_data()
     k_values <- 1:12
     wss_values <- map_dbl(k_values, wss, data = data[, sapply(data, is.numeric)])
     wss_values <- tibble(wss = wss_values,
@@ -145,7 +149,6 @@ server <- function(input, output) {
       theme_minimal()
     ggplotly(elbow)
   })
-  
 
 }
 # Return server function
