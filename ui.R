@@ -9,9 +9,9 @@ sidebar <- sidebarPanel(
   # Dropdown menu for variable selection
   selectInput("variable", 
               "Choose a variable:", 
-              choices = c("median_age", "proportion_foreign_born", "proportion_married_couple_families",
+              choices = c("median_age", "proportion_disability_35to64", "proportion_married_couple_families",
                           "proportion_school_enrolled", "proportion_poverty", "proportion_no_earners",
-                          "proportion_veteran", "proportion_received_food_stamps", 
+                          "median_income", "proportion_received_food_stamps", 
                           "proportion_not_in_labor_force", "proportion_with_computing_devices")), 
   # Output text area for data description
   textOutput("data_description_text")
