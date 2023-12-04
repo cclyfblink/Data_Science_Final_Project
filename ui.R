@@ -11,7 +11,7 @@ sidebar <- sidebarPanel(
               "Choose a variable:", 
               choices = c("median_age", "proportion_disability_35to64", "proportion_married_couple_families",
                           "proportion_school_enrolled", "proportion_poverty", "proportion_no_earners",
-                          "median_income", "proportion_received_food_stamps", 
+                          "median_household_income", "proportion_received_food_stamps", 
                           "proportion_not_in_labor_force", "proportion_with_computing_devices")), 
   # Output text area for data description
   textOutput("data_description_text")
