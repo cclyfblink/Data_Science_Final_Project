@@ -34,6 +34,7 @@ https://github.com/cclyfblink/Data_Science_Final_Project.git
 
 ## Each Group Member’s Contributions
 ***Data Set***
+
 1. Use the tidycensus package to access tables and download the ACS data: Yifan Lu
 
 2. There are 29 B tables. Select 10 of them (B01-B29) to explore: Yifan Lu, Binghan Shen, Yucheng Liu
@@ -44,6 +45,7 @@ https://github.com/cclyfblink/Data_Science_Final_Project.git
 
 
 ***“Variables” Tab Panel***
+
 1. Use text on the app to describe your data: Binghan Shen
 
 2. An interactive histogram using plotly: Yucheng Liu, Yifan Lu
@@ -54,6 +56,7 @@ https://github.com/cclyfblink/Data_Science_Final_Project.git
 
 
 ***“Unsupervised Learning” Tab Panel***
+
 1. visually summarize the clustering results for k clusters, allowing k to vary: Yifan Lu, Yucheng Liu
 
 2. Note that you’re clustering states/counties here, so the clustering results should be summarized on maps: Yifan Lu
