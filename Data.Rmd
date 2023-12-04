@@ -96,11 +96,9 @@ numerator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:!!No earner
 denominator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:',], GEOID)
 proportion_no_earners <- numerator_6$estimate / denominator_6$estimate
 
-# DELETE
-# Proportion of Veterans
-numerator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:!!Veteran',], GEOID)
-denominator_7 <- arrange(b21001_df[b21001_df$label == 'Estimate!!Total:',], GEOID)
-proportion_veteran <- numerator_7$estimate / denominator_7$estimate
+# Median income
+median_income_df <- arrange(b29004_df[b29004_df$variable == 'B29004_001',], GEOID)
+median_income <- median_income_df$estimate
 
 # Proportion who Received Food Stamps/SNAP
 numerator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:!!Household did not receive Food Stamps/SNAP in the past 12 months:',], GEOID)
