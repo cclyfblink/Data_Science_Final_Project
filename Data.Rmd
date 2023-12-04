@@ -100,8 +100,8 @@ denominator_6 <- arrange(b19122_df[b19122_df$label == 'Estimate!!Total:',], GEOI
 proportion_no_earners <- numerator_6$estimate / denominator_6$estimate
 
 # Median income
-median_income_df <- arrange(b29004_df[b29004_df$variable == 'B29004_001',], GEOID)
-median_income <- median_income_df$estimate
+median_household_income_df <- arrange(b29004_df[b29004_df$variable == 'B29004_001',], GEOID)
+median_household_income <- median_household_income_df$estimate
 
 # Proportion who Received Food Stamps/SNAP
 numerator_8 <- arrange(b22001_df[b22001_df$label == 'Estimate!!Total:!!Household did not receive Food Stamps/SNAP in the past 12 months:',], GEOID)
@@ -123,7 +123,7 @@ GEOID <- median_age_df$GEOID
 # Create State names variable
 STATE <- median_age_df$NAME
 # Create combined variables dataframe
-variables <- data.frame(GEOID, STATE, median_age, proportion_disability_35to64, proportion_married_couple_families, proportion_school_enrolled, proportion_poverty, proportion_no_earners, median_income, proportion_received_food_stamps, proportion_not_in_labor_force, proportion_with_computing_devices)
+variables <- data.frame(GEOID, STATE, median_age, proportion_disability_35to64, proportion_married_couple_families, proportion_school_enrolled, proportion_poverty, proportion_no_earners, median_household_income, proportion_received_food_stamps, proportion_not_in_labor_force, proportion_with_computing_devices)
 
 # Delete PR
 variables <- variables[-52,]
